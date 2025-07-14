@@ -1,0 +1,180 @@
+﻿@model PruebaTecnicaModelo.Modelos.Empleado
+
+@{
+    ViewData["Title"] = "Editar Empleado";
+
+    var puestos = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Gerente", Value = "Gerente", Selected = Model.Puesto == "Gerente" },
+        new SelectListItem { Text = "Sub Gerente", Value = "Sub Gerente", Selected = Model.Puesto == "Sub Gerente" },
+        new SelectListItem { Text = "Supervisor", Value = "Supervisor", Selected = Model.Puesto == "Supervisor" }
+    };
+}
+<br />
+<br />
+<h2 class ="text-center mb-4">Editar Empleado</h2>
+<hr />
+
+<div style="max-width: 600px; margin: auto; margin-top: 20px;">
+    <form asp-action="Editar" method="post" id="formEditar">
+        <input type="hidden" asp-for="Codigo" />
+
+        <div class="form-group">
+            <label asp-for="Puesto"></label>
+            <select asp-for="Puesto" asp-items="puestos" class="form-control" id="puestoSelect" onchange="cargarJefes('@Model.CodigoJefe')"></select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Nombre"></label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CodigoJefe">Código del Jefe</label>
+            <select asp-for="CodigoJefe" class="form-control" id="jefeSelect">
+                <option value="">Seleccione un jefe</option>
+            </select>
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+<div class="modal fade" id="modalReasignacion" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title">Reasignación necesaria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <p>Este empleado tiene subordinados:</p>
+                <ul id="subordinadosModal"></ul>
+                <p>Seleccione un nuevo jefe para reasignarlos:</p>
+                <select id="nuevoJefeModal" class="form-select" required></select>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmarCambio" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        let puestoOriginal = "@Model.Puesto";
+        let codigoEmpleado = @TempData["EmpleadoId"];
+        const baseUrl = '@ViewBag.BaseUrl';
+
+        async function cargarJefes(jefeActual) {
+            const puesto = document.getElementById("puestoSelect").value;
+            const jefeSelect = document.getElementById("jefeSelect");
+
+            jefeSelect.innerHTML = '<option value="">Cargando...</option>';
+
+            let tipoJefe = "";
+
+            if (puesto === "Sub Gerente") tipoJefe = "Gerente";
+            else if (puesto === "Supervisor") tipoJefe = "Sub Gerente";
+            else {
+                jefeSelect.innerHTML = '<option value="">Sin jefe</option>';
+                return;
+            }
+
+            const response = await fetch(`${baseUrl}/puesto/${encodeURIComponent(tipoJefe)}`);
+            const jefes = await response.json();
+
+            const empleadoId = @Model.Codigo;
+
+            jefeSelect.innerHTML = '<option value="">Seleccione un jefe</option>';
+
+            jefes
+                .filter(j => j.codigo !== empleadoId)
+                .forEach(j => {
+                    const option = document.createElement("option");
+                    option.value = j.codigo;
+                    option.text = `${j.codigo} - ${j.nombre}`;
+                if (j.codigo == jefeActual) {
+                            option.selected = true;
+                        }
+                        jefeSelect.appendChild(option);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            cargarJefes('@Model.CodigoJefe');
+        });
+
+        document.getElementById("formEditar").addEventListener("submit", async function (e) {
+            e.preventDefault(); 
+
+            const puestoNuevo = document.getElementById("puestoSelect").value.trim();
+            const nombre = document.querySelector("[name='Nombre']").value.trim();
+            const jefe = document.getElementById("jefeSelect").value.trim();
+
+            if (!puestoNuevo || !nombre || (!jefe && puestoNuevo !== "Gerente")) {
+                alert("Por favor, complete todos los campos antes de guardar.");
+                return;
+            }
+
+            if (puestoNuevo !== puestoOriginal) {
+                const response = await fetch(`${baseUrl}/subordinados/${codigoEmpleado}`);
+                const subordinados = await response.json();
+
+                if (subordinados.length > 0) {
+                    window.subordinados = subordinados;
+                    mostrarModalReasignacion(subordinados, puestoOriginal);
+
+                    return;
+                }
+            }
+            this.submit();
+        });
+
+        async function mostrarModalReasignacion(subordinados, nuevoPuesto) {
+
+
+            const response = await fetch(`${baseUrl}/puesto/${encodeURIComponent(nuevoPuesto)}`);
+
+            const jefes = await response.json();
+
+            const select = document.getElementById("nuevoJefeModal");
+            select.innerHTML = '<option value="">Seleccione un nuevo jefe</option>';
+
+            const jefesFiltrados = jefes.filter(j => j.codigo !== codigoEmpleado);
+            jefesFiltrados.forEach(j => {
+                select.innerHTML += `<option value="${j.codigo}">${j.codigo} – ${j.nombre}</option>`;
+            });
+
+            const lista = document.getElementById("subordinadosModal");
+            lista.innerHTML = "";
+            subordinados.forEach(s => {
+                lista.innerHTML += `<li>${s.codigo} – ${s.nombre}</li>`;
+            });
+
+            const modal = new bootstrap.Modal(document.getElementById("modalReasignacion"));
+            modal.show();
+
+            document.getElementById("confirmarCambio").onclick = async () => {
+                const nuevoJefe = select.value;
+                if (!nuevoJefe) {
+                    alert("Debe seleccionar un nuevo jefe.");
+                    return;
+                }
+
+                const url = `${baseUrl}/${codigoEmpleado}/${nuevoJefe}`;
+
+                responseJefe = await fetch(url, { method: 'PUT' });
+
+                if (responseJefe.ok) {
+                    document.getElementById("formEditar").submit();
+                } else {
+                    alert("Error al reasignar subordinados.");
+                }
+
+            };
+        }
+    </script>
+}

@@ -1,0 +1,176 @@
+﻿@using Newtonsoft.Json
+@model List<PruebaTecnicaModelo.Modelos.Empleado>
+@{
+    var mostrarModal = Convert.ToBoolean(ViewContext.HttpContext.Request.Query["eliminado"]);
+
+    var tieneSub = Convert.ToBoolean(ViewContext.HttpContext.Request.Query["tieneSubordinados"]);
+    var subordinados = TempData["Subordinados"] != null
+        ? JsonConvert.DeserializeObject<List<PruebaTecnicaModelo.Modelos.Empleado>>(TempData["Subordinados"].ToString())
+        : new List<PruebaTecnicaModelo.Modelos.Empleado>();
+
+    var empleadoId = TempData["EmpleadoId"];
+}
+<div class="modal fade" id="modalCreacionExitosa" tabindex="-1" aria-labelledby="modalCreadoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-success">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="modalCreadoLabel">Empleado creado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <p>El empleado fue creado correctamente.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEdicionExitosa" tabindex="-1" aria-labelledby="modalEditadoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-primary">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalEditadoLabel">Empleado editado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <p>El empleado fue editado correctamente.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (mostrarModal)
+{
+    <div class="modal fade show" id="modalEliminado" tabindex="-1" style="display:block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+                <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" width="80" class="mb-3" />
+                <h5 class="mb-3">Empleado eliminado</h5>
+                <a href="@Url.Action("Index", "Empleado")" class="btn btn-success">OK</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop fade show"></div>
+}
+
+
+@if (tieneSub)
+{
+    <div class="modal fade show" id="modalSubordinados" tabindex="-1" style="display:block;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+                <h5 class="mb-3 text-danger">No se puede eliminar</h5>
+                <p>Este empleado tiene subordinados:</p>
+
+                <ul class="list-group mb-3">
+                    @foreach (var sub in subordinados)
+                    {
+                        <li class="list-group-item">@sub.Codigo – @sub.Nombre</li>
+                    }
+                </ul>
+
+                <p>¿Desea reasignarlos a otro jefe del mismo rango?</p>
+
+                <select id="nuevoJefe" class="form-control mb-3">
+                    <option value="">Cargando jefes...</option>
+                </select>
+
+                <button class="btn btn-success" onclick="reasignarYEliminar(@empleadoId)">OK</button>
+                <a href="@Url.Action("Index", "Empleado")" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
+
+<br /><br />
+<h2 class="text-center mb-4">Jerarquía de Empleados</h2>
+<hr />
+<p>
+    @Html.ActionLink("Agregar nuevo empleado", "Crear", "Empleado", null, new { @class = "btn btn-success" })
+</p>
+<hr />
+@Html.Partial("_EmpleadoTree", Model)
+
+@if (TempData["Creado"] != null)
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = new bootstrap.Modal(document.getElementById("modalCreacionExitosa"));
+            modal.show();
+        });
+    </script>
+}
+
+@if (TempData["Editado"] != null)
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = new bootstrap.Modal(document.getElementById("modalEdicionExitosa"));
+            modal.show();
+        });
+    </script>
+}
+
+@section Scripts {
+    <script>
+
+        const baseUrl = '@ViewBag.BaseUrl';
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            if (document.getElementById("modalSubordinados")) {
+                const subordinado = @Html.Raw(JsonConvert.SerializeObject(subordinados));
+
+                const primerSub = subordinado.length > 0 ? subordinado[0] : null;
+
+                let rango = primerSub.Puesto;
+                let jefeRango = "";
+
+                if (rango === "Supervisor") jefeRango = "Sub Gerente";
+                if (rango === "Sub Gerente") jefeRango = "Gerente";
+
+                const response = await fetch(`${baseUrl}/puesto/${encodeURIComponent(jefeRango)}`);
+                const jefes = await response.json();
+
+                const codigoEmpleadoEliminar = @TempData["EmpleadoId"];
+
+                const select = document.getElementById("nuevoJefe");
+                select.innerHTML = '<option value="">Seleccione un nuevo jefe</option>';
+
+                const jefesFiltrados = jefes.filter(j => j.codigo !== codigoEmpleadoEliminar);
+
+                jefesFiltrados.forEach(j => {
+                    select.innerHTML += `<option value="${j.codigo}">${j.codigo} – ${j.nombre}</option>`;
+                });
+            }
+        });
+
+        async function reasignarYEliminar(idEmpleado) {
+            const nuevoJefeId = document.getElementById("nuevoJefe").value;
+
+            if (!nuevoJefeId) {
+                alert("Debes seleccionar un nuevo jefe antes de continuar.");
+                return; 
+            }
+
+
+            const url = `${baseUrl}/${idEmpleado}/${nuevoJefeId}`;
+            const response = await fetch(url, { method: 'PUT' });
+
+            if (response.ok) {
+               
+                window.location.href = `/Empleado/Eliminar?id=${idEmpleado}`;
+            } else {
+                alert("Error al reasignar subordinados.");
+            }
+        }
+    </script>
+
+}

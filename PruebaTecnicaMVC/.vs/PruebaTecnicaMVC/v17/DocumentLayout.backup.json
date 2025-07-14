@@ -1,0 +1,126 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|c:\\users\\emanu\\desktop\\pruebatecnica\\pruebatecnicamvc\\pruebatecnicamvc\\controllers\\empleadocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|solutionrelative:pruebatecnicamvc\\controllers\\empleadocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|c:\\users\\emanu\\desktop\\pruebatecnica\\pruebatecnicamvc\\pruebatecnicamvc\\views\\empleado\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|solutionrelative:pruebatecnicamvc\\views\\empleado\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|c:\\users\\emanu\\desktop\\pruebatecnica\\pruebatecnicamvc\\pruebatecnicamvc\\views\\empleado\\crear.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|solutionrelative:pruebatecnicamvc\\views\\empleado\\crear.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|c:\\users\\emanu\\desktop\\pruebatecnica\\pruebatecnicamvc\\pruebatecnicamvc\\views\\empleado\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|solutionrelative:pruebatecnicamvc\\views\\empleado\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|c:\\users\\emanu\\desktop\\pruebatecnica\\pruebatecnicamvc\\pruebatecnicamvc\\views\\empleado\\_empleadotree.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|solutionrelative:pruebatecnicamvc\\views\\empleado\\_empleadotree.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|c:\\users\\emanu\\desktop\\pruebatecnica\\pruebatecnicamvc\\pruebatecnicamvc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{418AAC11-D75A-40B3-96BC-FB52149F9140}|PruebaTecnicaMVC\\PruebaTecnicaMVC.csproj|solutionrelative:pruebatecnicamvc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 186,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_EmpleadoTree.cshtml",
+              "DocumentMoniker": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\Views\\Empleado\\_EmpleadoTree.cshtml",
+              "RelativeDocumentMoniker": "PruebaTecnicaMVC\\Views\\Empleado\\_EmpleadoTree.cshtml",
+              "ToolTip": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\Views\\Empleado\\_EmpleadoTree.cshtml",
+              "RelativeToolTip": "PruebaTecnicaMVC\\Views\\Empleado\\_EmpleadoTree.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-14T03:58:08.744Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Editar.cshtml",
+              "DocumentMoniker": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\Views\\Empleado\\Editar.cshtml",
+              "RelativeDocumentMoniker": "PruebaTecnicaMVC\\Views\\Empleado\\Editar.cshtml",
+              "ToolTip": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\Views\\Empleado\\Editar.cshtml",
+              "RelativeToolTip": "PruebaTecnicaMVC\\Views\\Empleado\\Editar.cshtml",
+              "ViewState": "AgIAAKIAAAAAAAAAAAAAAFUAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-13T01:19:12.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\appsettings.json",
+              "RelativeDocumentMoniker": "PruebaTecnicaMVC\\appsettings.json",
+              "ToolTip": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\appsettings.json",
+              "RelativeToolTip": "PruebaTecnicaMVC\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-14T03:42:17.398Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Crear.cshtml",
+              "DocumentMoniker": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\Views\\Empleado\\Crear.cshtml",
+              "RelativeDocumentMoniker": "PruebaTecnicaMVC\\Views\\Empleado\\Crear.cshtml",
+              "ToolTip": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\Views\\Empleado\\Crear.cshtml",
+              "RelativeToolTip": "PruebaTecnicaMVC\\Views\\Empleado\\Crear.cshtml",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAADIAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-14T00:25:24.9Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\Views\\Empleado\\Index.cshtml",
+              "RelativeDocumentMoniker": "PruebaTecnicaMVC\\Views\\Empleado\\Index.cshtml",
+              "ToolTip": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\Views\\Empleado\\Index.cshtml",
+              "RelativeToolTip": "PruebaTecnicaMVC\\Views\\Empleado\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-13T00:42:09.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EmpleadoController.cs",
+              "DocumentMoniker": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\Controllers\\EmpleadoController.cs",
+              "RelativeDocumentMoniker": "PruebaTecnicaMVC\\Controllers\\EmpleadoController.cs",
+              "ToolTip": "C:\\Users\\emanu\\Desktop\\PruebaTecnica\\PruebaTecnicaMVC\\PruebaTecnicaMVC\\Controllers\\EmpleadoController.cs",
+              "RelativeToolTip": "PruebaTecnicaMVC\\Controllers\\EmpleadoController.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAAwFAAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-12T01:40:30.56Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+﻿@model List<PruebaTecnicaModelo.Modelos.Empleado>
+
+<div style="max-width: 600px; margin: auto; margin-top: 20px;">
+    <ul class="list-group">
+        @foreach (var emp in Model)
+        {
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>@emp.Codigo</strong> – @emp.Puesto – @emp.Nombre
+                    </div>
+                    <div>
+                        @Html.ActionLink("Modificar", "Editar", "Empleado", new { id = emp.Codigo }, new { @class = "btn btn-sm btn-outline-primary me-2" })
+                        @Html.ActionLink("Eliminar", "Eliminar", "Empleado", new { id = emp.Codigo }, new { @class = "btn btn-sm btn-outline-danger" })
+                    </div>
+                </div>
+
+                @if (emp.Subordinados.Any())
+                {
+                    <div class="ms-4 mt-2">
+                        @Html.Partial("_EmpleadoTree", emp.Subordinados)
+                    </div>
+                }
+            </li>
+        }
+    </ul>
+</div>

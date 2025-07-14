@@ -1,0 +1,92 @@
+﻿@model PruebaTecnicaModelo.Modelos.Empleado
+
+@{
+    ViewData["Title"] = "Agregar Empleado";
+
+    var puestos = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Seleccione un puesto...", Value = "", Selected = true },
+        new SelectListItem { Text = "Gerente", Value = "Gerente" },
+        new SelectListItem { Text = "Sub Gerente", Value = "Sub Gerente" },
+        new SelectListItem { Text = "Supervisor", Value = "Supervisor" }
+    };
+}
+
+<br />
+<br />
+<h2 class="text-center mb-4">Agregar Empleado</h2>
+<hr />
+
+<div style="max-width: 600px; margin: auto; margin-top: 20px;">
+    <form asp-action="Crear" method="post" onsubmit="return validarFormulario();">
+
+        <div class="form-group">
+            <label asp-for="Puesto"></label>
+            <select asp-for="Puesto" asp-items="puestos" class="form-control" id="puestoSelect" onchange="cargarJefes()"></select>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Nombre"></label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CodigoJefe">Código del Jefe</label>
+            <select asp-for="CodigoJefe" class="form-control" id="jefeSelect">
+                <option value="">Seleccione un jefe</option>
+            </select>
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+
+        const baseUrl = '@ViewBag.BaseUrl';
+
+        async function cargarJefes() {
+            const puesto = document.getElementById("puestoSelect").value;
+            const jefeSelect = document.getElementById("jefeSelect");
+
+            jefeSelect.innerHTML = '<option value="">Cargando...</option>';
+
+            let tipoJefe = "";
+
+            if (puesto === "Sub Gerente") tipoJefe = "Gerente";
+            else if (puesto === "Supervisor") tipoJefe = "Sub Gerente";
+            else {
+                jefeSelect.innerHTML = '<option value="">Sin jefe</option>';
+                return;
+            }
+
+            const response = await fetch(`${baseUrl}/puesto/${encodeURIComponent(tipoJefe)}`);
+            const jefes = await response.json();
+
+            jefeSelect.innerHTML = '<option value="">Seleccione un jefe</option>';
+            jefes.forEach(j => {
+                const option = document.createElement("option");
+                option.value = j.codigo;
+                option.text = `${j.codigo} - ${j.nombre}`;
+                jefeSelect.appendChild(option);
+            });
+        }
+
+         function validarFormulario() {
+            const codigo = document.getElementById("Codigo").value.trim();
+            const puesto = document.getElementById("puestoSelect").value.trim();
+            const nombre = document.querySelector("[name='Nombre']").value.trim();
+            const jefe = document.getElementById("jefeSelect").value.trim();
+
+            if (!codigo || !puesto || !nombre || (!jefe && puesto !== "Gerente")) {
+                alert("Por favor, complete todos los campos antes de guardar.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+}
