@@ -7,6 +7,7 @@ API:
 DefaultConnection(Conexion a la base de datos).
 MVC:
 BaseUrl(URL de la API).
+
 <img width="402" height="66" alt="image" src="https://github.com/user-attachments/assets/367b1eee-e76e-472b-9a69-2c43fa11585f" />
 
 Espero que sea de su agrado.
